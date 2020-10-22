@@ -303,12 +303,58 @@ if (isset($ckeditor)) {?>
 <?php }?>
 
 
-
 <script src="<?php echo site_url('public/assets/js') ?>/script.js"></script>
 <script src="<?php echo site_url('public/assets/js') ?>/plugins/daterangepicker/daterangepicker.js"></script>
 <script src="<?php echo site_url('public/assets/js') ?>/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.1/jquery.twbsPagination.min.js" type="text/javascript"></script>
+<script charset="UTF-8" src="<?php echo site_url(); ?>public/assets/bxslider/jquery.bxslider.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo site_url('public/assets/js') ?>/flot.js"></script>
-
+<?php if (isset($data) && count($data) > 0) {?>
+<script type="text/javascript">
+	function totalpage() {
+		var pagination = <?php echo($this->input->get('pagination') == null) ? 10 : $this->input->get(
+			'pagination') ?> ;
+		var total = parseInt( <?php echo $data['total'] ?> );
+		var totalpage = parseInt(pagination);
+		if (total >= totalpage && (total % totalpage) == 0) {
+			console.log(total / totalpage);
+			return (total / totalpage);
+		} else if (total >= totalpage && (total % totalpage) != 0) {
+			console.log(total / totalpage);
+			return (total / totalpage) + 1;
+		} else {
+			console.log(1);
+			return 1;
+		}
+	}
+	$('#pagination-demo').twbsPagination({
+		totalPages: parseInt(totalpage()),
+		visiblePages: 2,
+		next: 'Next',
+		prev: 'Prev',
+		onPageClick: function (event, page) {
+			var pagination = <?php echo($this->input->get('pagination') == null) ? 10 : $this->input->get('pagination') ?> ;
+			$.ajax({
+				url: BASE_URL + 'order/sort',
+				type: 'post',
+				dataType: 'json',
+				data: {
+					'pagination': pagination,
+					'page': page
+				},
+				success: function (res) {
+					console.log(res);
+					if (!res.error) {
+						$('.list-order').html(res.html);
+					} else {
+						$('.list-order').html(res.error);
+					}
+				}
+			});
+		}
+	});
+</script>
+<?php }?>
 </body>
 </html>

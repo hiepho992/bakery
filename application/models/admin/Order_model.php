@@ -27,14 +27,15 @@ class Order_model extends CI_Model {
 	}
 
 	public function getOrder($page = 0, $total_page) {
-		$this->db->select('od.order_id');
-		$this->db->join('order_detail dt', 'od.order_id = dt.order_id', 'left');
+		// $this->db->select('od.order_id');
+		// $this->db->join('order_detail dt', 'od.order_id = dt.order_id', 'left');
 
-		$this->db->from($this->table . ' od');
-		$this->db->group_by('DATE(od.order_date)');
+		// $this->db->from($this->table . ' od');
+		// $this->db->group_by('DATE(od.order_date)');
 		$total = $this->db->count_all_results($this->table);
-		$limit = ($total > $total_page) ? $total_page : $total;
-		$start = ($page < 1) ? 0 : ($page - 1) * $limit;
+		// $limit = ($total > $total_page) ? $total_page : $total;
+		$limit = $total_page;
+		$start = ((int) $page <= 1) ? 0 : ($page - 1) * $limit;
 
 		$this->db->limit($limit, $start);
 		$this->db->order_by('id', 'DESC');
@@ -97,13 +98,13 @@ class Order_model extends CI_Model {
 	}
 
 	public function getOrderByDay($date, $page, $total_page) {
-		$this->db->select('od.order_id');
-		$this->db->from($this->table . ' od');
-		$this->db->where('DATE(od.order_date)', $date);
-		$this->db->join('users u', 'od.user_id = u.id', 'left');
-		$this->db->join('order_detail dt', 'od.order_id = dt.order_id', 'left');
-		$this->db->join('products p', 'dt.product_id = p.id', 'left');
-		$this->db->group_by('od.order_id');
+		// $this->db->select('od.order_id');
+		// $this->db->from($this->table . ' od');
+		// $this->db->where('DATE(od.order_date)', $date);
+		// $this->db->join('users u', 'od.user_id = u.id', 'left');
+		// $this->db->join('order_detail dt', 'od.order_id = dt.order_id', 'left');
+		// $this->db->join('products p', 'dt.product_id = p.id', 'left');
+		// $this->db->group_by('od.order_id');
 		$total = $this->db->count_all_results($this->table);
 		$limit = ($total > $total_page) ? $total_page : $total;
 		$start = ((int) $page <= 1) ? 0 : ($page - 1) * $limit;

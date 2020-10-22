@@ -55,9 +55,8 @@
                         <div class="box-body no-padding"  style="overflow-x:auto;">
                             <table class="table table-bordered table-hover table-striped list-detail-order">
                                 <?php load_element('/admin/order/list_detail');?>
-                            </table>
-
-                        </div>
+                            </table>							
+						</div>					
                         <div class="box-footer clearfix">
                             <?php echo custom_pagination(site_url('admin/order/detail/') . $this->uri->segment(4), $data['total'], $total_page); ?>
                         </div>

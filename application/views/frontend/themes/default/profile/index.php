@@ -101,8 +101,7 @@
 
 							<div class="row">
 								<div class="col-sm-12" style="text-align: center;">
-									<ul id="pagination-demo" class="pagination-sm"></ul>
-									<?php custom_pagination(site_url() . '/frontend/profile/index/', $data['total'], $total_page); ?>
+									<ul id="pagination-demo" class="pagination-sm"></ul>									
 								</div>
 							</div>
 						</div>

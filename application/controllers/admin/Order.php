@@ -102,5 +102,24 @@ class Order extends My_Controller {
 		$data['data'] = $this->order_model->searchorder($keyword, $page, $data['total_page']);
 		$this->_renderAdminLayout('admin/order/search', $data);
 	}
+	public function sort() {				
+		if ($this->input->post('page') != null) {
+			$page = $this->input->post('page');
+		} else {
+			$page = 0;
+		}
+	
+		// $data['total_price'] = $this->order_model->getTotalPaymenByMonth();
+		$data['total_page'] = $this->pagination_model->getPaginationByPage('Đơn hàng')->total;
+		$data['data'] = $this->order_model->getOrder($page, $data['total_page']);
+		
+		$response = $this->_loadElementAdmin('admin/order/list', $data, TRUE);
+		// var_dump($response);
+		if ($response != null) {
+			die(json_encode(['html' => $response]));
+		} else {
+			die(json_encode(['html' => 'Bạn không có bất kỳ sản phẩm nào!']));
+		}
+	}
 }
 ?>

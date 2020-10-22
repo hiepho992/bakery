@@ -90,3 +90,4 @@ $route['bill/delete'] = 'frontend/Bill/delete';
 $route['bill/addgiavi'] = 'frontend/Bill/addgiavi';
 $route['contact'] = 'Home/contact';
 $route['export/excel'] = 'admin/Export/exportExcel';
+$route['order/sort'] = 'admin/Order/sort';
